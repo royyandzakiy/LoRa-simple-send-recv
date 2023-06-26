@@ -25,13 +25,13 @@ void loraSetup() {
                "' is: " + (String)nodeId);
 }
 
-void sendMsg(int _count) {
-  String msg =
-      "nodeId " + (String)nodeId + " Sending message: " + (String)_count;
+void sendMsg(const String _msg) {
+  String payload =
+      "nodeId " + (String)nodeId + " Sending message: " + _msg;
 
   // Send LoRa packet to receiver
   LoRa.beginPacket();
-  LoRa.print(msg);
+  LoRa.print(payload);
   LoRa.endPacket();
 }
 
@@ -72,7 +72,7 @@ void loop() {
   recvMsg();
 
   if (millis() - lastSend > 5000) {
-    sendMsg(count++);
+    sendMsg(String(count++));
     lastSend = millis();
   }
 }
